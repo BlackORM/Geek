@@ -21,7 +21,7 @@ int count = 0;
 for (int i = 0; i < num; i++)
 {
     Console.Write($"Введите строку {i + 1}: ");
-    userString[i] = Console.ReadLine();
+    userString[i] = (Console.ReadLine() ?? "");
 
     if (userString[i].Length <= 3) count++;
 }
@@ -40,10 +40,8 @@ for (int i = 0; i < num; i++)
     }
 }
 
-Console.WriteLine("Вы ввели массив:");
-PrintArray(userString);
-Console.WriteLine("Массив из элементов не более 3 символов:");
-PrintArray(finalString);
+//Вывод результатов
+Console.WriteLine($"В массиве [\"{string.Join("\", \"", userString)}\"] элементы не более 3 символов [\"{string.Join("\", \"", finalString)}\"]");
 
 
 //ввод и проверка ввода положительных чисел 
@@ -58,15 +56,4 @@ int InputPositiveNumber(string message, string errormessage)
         Console.WriteLine(errormessage);
     }
 }
-
-//вывод массива
-void PrintArray(string[] inArray)
-{
-    for (int i = 0; i < inArray.GetLength(0); i++)
-    {
-        Console.Write($"{inArray[i]}, ");
-    }
-    Console.WriteLine();
-}
-
 
