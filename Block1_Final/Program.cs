@@ -7,7 +7,7 @@
 // [“1234”, “1567”, “-2”, “computer science”] → [“-2”]
 // [“Russia”, “Denmark”, “Kazan”] → []
 
-//Console.Clear();
+Console.Clear();
 //Пользователь вводит количество элеметов массива через метод с проверкой
 int num = InputPositiveNumber("Введите количество записей в массиве: ", "Ошибка ввода данных!");
 
@@ -26,23 +26,29 @@ for (int i = 0; i < num; i++)
     if (userString[i].Length <= 3) count++;
 }
 
-//Создаем массив для элементов у которых не более 3 символов
-string[] finalString = new string[count];
-count = 0;
-
-//Переносим элементы с 3 и менее символами в итоговый массив
-for (int i = 0; i < num; i++)
+if (count == 0)
 {
-    if (userString[i].Length <= 3)
-    {
-        finalString[count] = userString[i];
-        count++;
-    }
+    Console.WriteLine($"[\"{string.Join("\", \"", userString)}\"] => []");
 }
+else
+{
+    //Создаем массив для элементов у которых не более 3 символов
+    string[] finalString = new string[count];
+    count = 0;
 
-//Вывод результатов
-Console.WriteLine($"В массиве [\"{string.Join("\", \"", userString)}\"] элементы не более 3 символов [\"{string.Join("\", \"", finalString)}\"]");
+    //Переносим элементы с 3 и менее символами в итоговый массив
+    for (int i = 0; i < num; i++)
+    {
+        if (userString[i].Length <= 3)
+        {
+            finalString[count] = userString[i];
+            count++;
+        }
+    }
 
+    //Вывод результатов
+    Console.WriteLine($"[\"{string.Join("\", \"", userString)}\"] => [\"{string.Join("\", \"", finalString)}\"]");
+}
 
 //ввод и проверка ввода положительных чисел 
 int InputPositiveNumber(string message, string errormessage)
