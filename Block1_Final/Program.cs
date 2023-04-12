@@ -8,47 +8,18 @@
 // [“Russia”, “Denmark”, “Kazan”] → []
 
 Console.Clear();
+
 //Пользователь вводит количество элеметов массива через метод с проверкой
-int num = InputPositiveNumber("Введите количество записей в массиве: ", "Ошибка ввода данных!");
-
-//Создаем массив заданной размерности
-string[] userString = new string[num];
-
-//Переменная считающая количество элементов с заданными условиями
-int count = 0;
-
 //Заполняем массив введенными пользователем строками
-for (int i = 0; i < num; i++)
-{
-    Console.Write($"Введите строку {i + 1}: ");
-    userString[i] = (Console.ReadLine() ?? "");
+string[] userString = InputUserString();
 
-    if (userString[i].Length <= 3) count++;
-}
+//Создаем итоговый массив для элементов у которых не более 3 символов
+string[] finalString = InputFinalString(userString, SizeFinalArray(userString));
 
-if (count == 0)
-{
-    Console.WriteLine($"[\"{string.Join("\", \"", userString)}\"] => []");
-}
-else
-{
-    //Создаем массив для элементов у которых не более 3 символов
-    string[] finalString = new string[count];
-    count = 0;
+//Вывод результатов
+Console.WriteLine($"\n{PrintUserString(userString)} -> {PrintUserString(finalString)}");
 
-    //Переносим элементы с 3 и менее символами в итоговый массив
-    for (int i = 0; i < num; i++)
-    {
-        if (userString[i].Length <= 3)
-        {
-            finalString[count] = userString[i];
-            count++;
-        }
-    }
-
-    //Вывод результатов
-    Console.WriteLine($"[\"{string.Join("\", \"", userString)}\"] => [\"{string.Join("\", \"", finalString)}\"]");
-}
+//---------методы---------
 
 //ввод и проверка ввода положительных чисел 
 int InputPositiveNumber(string message, string errormessage)
@@ -63,3 +34,50 @@ int InputPositiveNumber(string message, string errormessage)
     }
 }
 
+//Ввод пользователем размерности и строк
+string[] InputUserString()
+{
+    int num = InputPositiveNumber("Введите количество записей в массиве: ", "Ошибка ввода данных!");
+    string[] userInput = new string[num];
+
+    for (int i = 0; i < num; i++)
+    {
+        Console.Write($"Введите строку {i + 1}: ");
+        userInput[i] = (Console.ReadLine() ?? "");
+    }
+    return userInput;
+}
+
+//Вывод результатов
+string PrintUserString(string[] inArray)
+{
+    if (inArray.Length == 0) return "[]";
+    return $"[\"{String.Join("\", \"", inArray)}\"]";
+}
+
+//Определение размерности итогового массива
+int SizeFinalArray(string[] inArray)
+{
+    int count = 0;
+    for (int i = 0; i < inArray.Length; i++)
+    {
+        if (inArray[i].Length <= 3) count++;
+    }
+    return count;
+}
+
+//Заполнение итогового массива
+string[] InputFinalString(string[] inArray, int count)
+{
+    string[] itog = new string[count];
+    count = 0;
+    for (int i = 0; i < inArray.Length; i++)
+    {
+        if (inArray[i].Length <= 3)
+        {
+            itog[count] = inArray[i];
+            count++;
+        }
+    }
+return itog;
+}
